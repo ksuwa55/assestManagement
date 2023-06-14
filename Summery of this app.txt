@@ -1,9 +1,0 @@
-What this project about?
-- Filter Stock Product by many Criteria (PER, PBR, and ROE)
-- Stock market > Japan and US
-
-Tasks
-- Make login(auth)
-- Investigate how to get stock data
-- IMplement apis
--UIS
