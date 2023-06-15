@@ -5,7 +5,20 @@ const  SignupForm = () => {
     const [password, setPassword] = useState('');
 
     const handleUsernameChange = (event) => {
-        
+        setUsername(event.target.value);
+    }
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+            // TODO: Send signup request to backend
+
+            setUsername('');
+            setPassword('');
     }
 
     return (
