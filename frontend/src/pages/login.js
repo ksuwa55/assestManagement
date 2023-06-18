@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 
 const  LoginForm = () => {
+    const history = useHistory();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -19,7 +21,11 @@ const  LoginForm = () => {
 
             setUsername('');
             setPassword('');
-    }
+
+            // Navigate to the login page after successful signup
+            history.push('/');
+    };
+    
 
     return (
         <form onSubmit={handleSubmit}>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 
 const  SignupForm = () => {
+    const history = useHistory();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -19,6 +21,9 @@ const  SignupForm = () => {
 
             setUsername('');
             setPassword('');
+            // Navigate to the login page after successful signup
+            history.push('/login');
+
     }
 
     return (
