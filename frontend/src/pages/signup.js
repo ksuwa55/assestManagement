@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const  SignupForm = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -14,38 +15,62 @@ const  SignupForm = () => {
         setPassword(event.target.value);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-            // TODO: Send signup request to backend
+            try {
+            // Send signup request to backend
+            const response = await axios.post('/api/signup', {
+              username,
+              password,
+            });
 
             setUsername('');
             setPassword('');
             // Navigate to the login page after successful signup
-            history.push('/login');
+            navigate.push('/login');
+          } catch (error) {
+            console.error(error);
+          }
 
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-        <h2>Sign Up</h2>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={handleUsernameChange}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-          required
-        />
-        <button type="submit">Sign Up</button>
-      </form>
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            <h2 className="text-center mb-4">Sign Up</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label>Username</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter username"
+                  value={username}
+                  onChange={handleUsernameChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="Enter password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn btn-primary btn-block">
+                Sign Up
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     );
-};
-
-export default SignupForm;
+  };
+  
+  export default SignupForm;

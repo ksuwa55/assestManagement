@@ -1,7 +1,7 @@
 package assetmanagement.backend.controller;
 
-import assetmanagement.backend.model.User;
 import assetmanagement.backend.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("/api")
 public class UserController {
     private final UserRepository userRepository;
 
@@ -20,27 +20,25 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signUp(@RequestBody User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            return ResponseEntity.badRequest().body("Username is already taken!");
+    public void signup(@RequestBody User user) {
+        // Check if the username already exists
+        User existingUser = userRepository.findByUsername(user.getUsername());
+        if (existingUser != null) {
+            throw new RuntimeException("Username already exists");
         }
 
-        // TODO: Add password hashing
-
+        // Save the new user
         userRepository.save(user);
-        return ResponseEntity.ok("User registered successfuly!");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user){
-        Optional<User> foundUser = userRepository.findByUsername(user.getUsername());
+    public ResponseEntity<String> login(@RequestBody User user) {
+        User existingUser = userRepository.findByUsername(user.getUsername());
 
-        if (foundUser.isPresent()){
-            // TODO: Add password comparison
-
-            return ResponseEntity.ok("User logged in successfully!");
+        if (existingUser == null || !existingUser.getPassword().equals(user.getPassword())) {
+            throw new RuntimeException("Invalid username or password");
         } else {
-            return ResponseEntity.badRequest().body("Invalid username or password!");
+            return ResponseEntity.ok("User logged in successfully!");
         }
     }
 }
