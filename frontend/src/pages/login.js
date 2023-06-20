@@ -6,6 +6,7 @@ const  LoginForm = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -25,10 +26,18 @@ const  LoginForm = () => {
               password,
             });
 
-            // Navigate to the login page after successful signup
-            navigate('/');
+            // Check if login was successful
+            if(response.data.success) {
+              // Set authentification flag in localStrage
+              localStorage.setItem('authentificated', 'true');
+
+              // Redirect to the home page
+              navigate('/home');
+            } else {
+              setError('Invalid username or password');
+            }
           }catch (error) {
-              console.error(error);
+              setError('An error occurred during login');
             }
     };
     
@@ -63,11 +72,10 @@ const  LoginForm = () => {
                       required
                     />
                   </div>
-                  <div className="text-center mt-3">
-                    <button type="submit" className="btn btn-primary btn-block">
+                  {error && <div className="text-center mt-3"> {error}</div>}
+                    <button type="submit" className="btn btn-primary btn-block mt-3">
                       Login
                     </button>
-                  </div>
                 </form>
               </div>
             </div>
