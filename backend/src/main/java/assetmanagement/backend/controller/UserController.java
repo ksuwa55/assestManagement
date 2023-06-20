@@ -2,9 +2,14 @@ package assetmanagement.backend.controller;
 
 import assetmanagement.backend.repository.UserRepository;
 import assetmanagement.backend.model.User;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -12,6 +17,12 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class UserController {
     private final UserRepository userRepository;
+
+    @Value("${app.jwtSecret}") // Read the secret key from configuration (e.g., application.properties)
+    private String jwtSecret;
+
+    @Value("app.jwtExpirationMs") // Read the token expiration time from configuration (e.g., application.properties)
+    private int jwtExpirationMs;
 
     public UserController(UserRepository userRepository){
         this.userRepository = userRepository;
@@ -36,7 +47,32 @@ public class UserController {
         if (existingUser == null || !existingUser.getPassword().equals(user.getPassword())) {
             throw new RuntimeException("Invalid username or password");
         } else {
-            return ResponseEntity.ok("User logged in successfully!");
+            // Generate JWT token
+            String token = generateJwtToken(existingUser);
+
+            // Return the token in the request body
+            return ResponseEntity.ok(token);
         }
+    }
+
+    private String generateJwtToken(User user) {
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
+
+        // create the JWT token
+        return Jwts.builder()
+                .setSubject(Long.toString(user.getId()))
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+                .signWith(SignatureAlgorithm.ES512, jwtSecret)
+                .compact();
+    }
+
+    // Helper method to validate and parse JWT token
+    private Claims parseJwtToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJwt(token)
+                .getBody();
     }
 }
