@@ -21,7 +21,7 @@ public class UserController {
     @Value("${app.jwtSecret}") // Read the secret key from configuration (e.g., application.properties)
     private String jwtSecret;
 
-    @Value("app.jwtExpirationMs") // Read the token expiration time from configuration (e.g., application.properties)
+    @Value("${app.jwtExpirationMs}") // Read the token expiration time from configuration (e.g., application.properties)
     private int jwtExpirationMs;
 
     public UserController(UserRepository userRepository){
@@ -45,7 +45,7 @@ public class UserController {
         User existingUser = userRepository.findByUsername(user.getUsername());
 
         if (existingUser == null || !existingUser.getPassword().equals(user.getPassword())) {
-            throw new RuntimeException("Invalid username or password");
+            throw new RuntimeException("something happened");
         } else {
             // Generate JWT token
             String token = generateJwtToken(existingUser);
@@ -64,7 +64,7 @@ public class UserController {
                 .setSubject(Long.toString(user.getId()))
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.ES512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
 

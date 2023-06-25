@@ -25,14 +25,14 @@ const  LoginForm = () => {
               username,
               password,
             });
-
+           console.log(response)
             // Check if login was successful
-            if(response.data.success) {
+            if(response.data) {
               // Set authentification flag in localStrage
               localStorage.setItem('authentificated', 'true');
 
               // Redirect to the home page
-              navigate('/home');
+              navigate('/');
             } else {
               setError('Invalid username or password');
             }

@@ -6,7 +6,8 @@ import Home from './pages/home';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const isLoggedIn = false; // Replace with the auth logic
+  
+  const isLoggedIn = localStorage.getItem('authentificated'); // Replace with the auth logic
 
   return (
     <div className="App">
