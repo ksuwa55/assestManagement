@@ -1,2 +1,7 @@
-package assetmanagement.backend.repository;public interface StockRepository {
+package assetmanagement.backend.repository;
+
+import assetmanagement.backend.model.Stock;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StockRepository extends JpaRepository<Stock, Long> {
 }
