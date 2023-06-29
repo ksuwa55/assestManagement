@@ -29,7 +29,7 @@ const  LoginForm = () => {
             // Check if login was successful
             if(response.data) {
               // Set authentification flag in localStrage
-              localStorage.setItem('authentificated', 'true');
+              localStorage.setItem('authenticated', 'true');
 
               // Redirect to the home page
               navigate('/');
