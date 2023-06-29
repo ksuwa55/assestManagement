@@ -32,9 +32,7 @@ const  SignupForm = () => {
           } catch (error) {
             console.error(error);
           }
-
     }
-
 
     return (
       <div className="container">
