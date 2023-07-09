@@ -1,14 +1,21 @@
 import React from 'react';
 import Navbar from '../layout/Navbar';
+import Sidebar from '../layout/Sidebar';
 
 const Home = () => {
-    return (
-        <div>
-            <Navbar />
+  return (
+    <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
+      <Navbar />
+      <div className="flex-grow-1 d-flex">
+        <Sidebar />
+        <div className="flex-grow-1 d-flex align-items-center justify-content-center" style={{ flex: '1' }}>
+          <div className="text-center">
             <h1>Welcome to the home page</h1>
-            <p>This is the home page</p>
-        </div>      
-    )
-}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Home;
