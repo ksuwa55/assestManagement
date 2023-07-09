@@ -20,18 +20,11 @@ export default function Navbar() {
             <Link className="navbar-brand" to="/">
                 Your Market Info
             </Link>
-            <button 
-                className="navbar-toggler" 
-                type="button" 
-                data-bs-toggle="collapse" 
-                data-bs-target="#navbarSupportedContent" 
-                aria-controls="navbarSupportedContent" 
-                aria-expanded="false" 
-                aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-            </button>
-
-            <button className='btn btn-outline-light' onClick={handleLogout}>Logout</button>
+            <div>
+                <Link className='btn btn-outline-light me-2' to="/search" >Seach</Link>
+                <Link className='btn btn-outline-light me-2' to="/portfolio">Portfolio</Link>
+                <button className='btn btn-outline-light me-2' onClick={handleLogout}>Logout</button>
+            </div>
         </div>
         </nav>
     </div>
