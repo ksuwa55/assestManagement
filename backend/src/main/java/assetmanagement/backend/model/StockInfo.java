@@ -6,16 +6,18 @@ public class StockInfo {
     private double per;
     private double pbr;
     private double roe;
+    private double price;
 
     public StockInfo() {
     }
 
-    public StockInfo(String symbol, String name, double per, double pbr, double roe){
+    public StockInfo(String symbol, String name, double per, double pbr, double roe, double price){
         this.symbol = symbol;
         this.name = name;
         this.per = per;
         this.pbr = pbr;
         this.roe = roe;
+        this.price = price;
     }
 
     // Getters and setters
@@ -58,5 +60,12 @@ public class StockInfo {
 
     public void setRoe(double roe) {
         this.roe = roe;
+    }
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

@@ -11,16 +11,17 @@ const Search = () => {
         <div className='container'>
         <div class="input-group input-group-sm mb-3">
           <div className=' m-5 '>
+            <p class="text-uppercase">PER</p>
             <input type="text" className="form-control border-dark mb-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"/>
-            <button type="button" className="btn btn-primary">Primary</button>
+            <button type="button" className="btn btn-primary">Search</button>
           </div>
           <div className=' m-5 '>
+            <p class="text-uppercase">PBR</p>
             <input type="text" className="form-control border-dark mb-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"/>
-            <button type="button" className="btn btn-primary">Primary</button>
           </div>
           <div className=' m-5 '>
+            <p class="text-uppercase">ROE</p>
             <input type="text" className="form-control border-dark mb-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"/>
-            <button type="button" className="btn btn-primary">Primary</button>
           </div>        
         </div>
         <div className="flex-grow-1 d-flex align-items-center justify-content-center p-5" style={{ flex: '1' }}>

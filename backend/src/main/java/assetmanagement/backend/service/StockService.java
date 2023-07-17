@@ -13,9 +13,9 @@ public class StockService {
 
         // Example code to create dummy stock data for demonstration
         List<StockInfo> stocks = new ArrayList<>();
-        stocks.add(new StockInfo("AAPL", "Apple Inc.", 30.5, 2.1, 15.2));
-        stocks.add(new StockInfo("GOOGL", "Alphabet Inc.", 25.8, 1.8, 18.7));
-        stocks.add(new StockInfo("MSFT", "Microsoft Corporation", 35.9, 3.2, 20.1));
+        stocks.add(new StockInfo("AAPL", "Apple Inc.", 30.5, 2.1, 15.2, 20000));
+        stocks.add(new StockInfo("GOOGL", "Alphabet Inc.", 25.8, 1.8, 18.7, 30000));
+        stocks.add(new StockInfo("MSFT", "Microsoft Corporation", 35.9, 3.2, 20.1, 250000));
 
         // Filter stocks based on criteria
         List<StockInfo> filteredStocs = new ArrayList<>();
