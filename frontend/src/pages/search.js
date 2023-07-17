@@ -12,16 +12,16 @@ const Search = () => {
         <div class="input-group input-group-sm mb-3">
           <div className=' m-5 '>
             <p class="text-uppercase">PER</p>
-            <input type="text" className="form-control border-dark mb-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"/>
+            <input type="number" className="form-control border-dark mb-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"/>
             <button type="button" className="btn btn-primary">Search</button>
           </div>
           <div className=' m-5 '>
             <p class="text-uppercase">PBR</p>
-            <input type="text" className="form-control border-dark mb-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"/>
+            <input type="number" className="form-control border-dark mb-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"/>
           </div>
           <div className=' m-5 '>
             <p class="text-uppercase">ROE</p>
-            <input type="text" className="form-control border-dark mb-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"/>
+            <input type="number" className="form-control border-dark mb-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"/>
           </div>        
         </div>
         <div className="flex-grow-1 d-flex align-items-center justify-content-center p-5" style={{ flex: '1' }}>
@@ -29,9 +29,8 @@ const Search = () => {
             <thead>
               <tr>
                 <th scope="col"></th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
               </tr>
             </thead>
             <tbody>
@@ -39,7 +38,6 @@ const Search = () => {
                 <th scope="row"> 
                   <button type="button" className="btn btn-primary">+</button>
                 </th>
-                <td>Mark</td>
                 <td>Otto</td>
                 <td>@mdo</td>
               </tr>
@@ -47,7 +45,6 @@ const Search = () => {
                 <th scope="row">
                   <button type="button" className="btn btn-primary">+</button>
                 </th>
-                <td>Jacob</td>
                 <td>Thornton</td>
                 <td>@fat</td>
               </tr>
@@ -55,7 +52,6 @@ const Search = () => {
                 <th scope="row">
                   <button type="button" className="btn btn-primary">+</button>
                 </th>
-                <td>Larry the Bird</td>
                 <td>Larry the Bird</td>
                 <td>@twitter</td>
               </tr>
