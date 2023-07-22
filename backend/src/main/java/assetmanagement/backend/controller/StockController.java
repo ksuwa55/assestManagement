@@ -3,10 +3,7 @@ package assetmanagement.backend.controller;
 import assetmanagement.backend.model.StockInfo;
 import assetmanagement.backend.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,11 +16,17 @@ public class StockController {
         this.stockService = stockService;
     }
 
-    @GetMapping("/stocks")
+    @GetMapping("/stocks/{per}")
     public List<StockInfo> searchStocksByCriteria(
-            @RequestParam double per,
-            @RequestParam double pbr,
-            @RequestParam double roe) {
+            @RequestParam("per") double per,
+            @RequestParam("pbr") double pbr,
+            @RequestParam("roe") double roe) {
         return stockService.searchStocksByCriteria(per, pbr, roe);
     }
 }
+
+
+
+
+
+
