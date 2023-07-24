@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
+@RequestMapping("/api")
 public class StockController {
     private final StockService stockService;
 
@@ -16,7 +18,7 @@ public class StockController {
         this.stockService = stockService;
     }
 
-    @GetMapping("/stocks/{per}")
+    @GetMapping("/stocks")
     public List<StockInfo> searchStocksByCriteria(
             @RequestParam("per") double per,
             @RequestParam("pbr") double pbr,
