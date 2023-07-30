@@ -23,7 +23,8 @@ public class StockController {
             @RequestParam("per") double per,
             @RequestParam("pbr") double pbr,
             @RequestParam("roe") double roe) {
-        return stockService.searchStocksByCriteria(per, pbr, roe);
+        List<String> dowSymbols = stockService.getDowSymbolsFromFile();
+        return stockService.searchStocksByCriteria(dowSymbols, per, pbr, roe);
     }
 }
 

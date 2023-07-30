@@ -1,30 +1,65 @@
 package assetmanagement.backend.service;
 
 import assetmanagement.backend.model.StockInfo;
+import assetmanagement.backend.response.AlphaVantageResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class StockService {
-    public List<StockInfo> searchStocksByCriteria(double per, double pbr, double roe){
-        // Make API request to Alpha Vantage and filter stocks based on the provided criteria
-        // Replace this with your actual implementation using the Alpha Vantage API
-        // You can use the `RestTemplate` to send HTTP requests to Alpha Vantage API
+    private static final String API_KEY = "6L2HLK4GKMQNZ20Z";
+    private static final String ALPHA_VANTAGE_URL = "https://www.alphavantage.co/query";
+    private static final String DOW_SYMBOLS_FILE_PATH = "backend/src/main/resources/static/dow_symbols.txt";
 
-        List<StockInfo> stocks = new ArrayList<>();
-        stocks.add(new StockInfo("AAPL", "Apple Inc.", 30.5, 2.1, 15.2, 20000));
-        stocks.add(new StockInfo("GOOGL", "Alphabet Inc.", 25.8, 1.8, 18.7, 30000));
-        stocks.add(new StockInfo("MSFT", "Microsoft Corporation", 35.9, 3.2, 20.1, 250000));
-
-        // Filter stocks based on criteria
+    public List<StockInfo> searchStocksByCriteria(List<String> stockSymbols, double per, double pbr, double roe){
         List<StockInfo> filteredStocks = new ArrayList<>();
-        for (StockInfo stock : stocks){
-            if (stock.getPer() <= per && stock.getPbr() <= pbr && stock.getRoe() <= roe){
-                filteredStocks.add(stock);
+
+        for (String symbol : stockSymbols) {
+            String apiUrl = ALPHA_VANTAGE_URL + "?function=OVERVIEW&symbol=" + symbol + "&apikey=" + API_KEY;
+
+            // Send the API request and get the response as a JSON
+            RestTemplate restTemplate = new RestTemplate();
+            AlphaVantageResponse alphaVantageResponse = restTemplate.getForObject(apiUrl, AlphaVantageResponse.class);
+
+            // Process the API response to get the real-time stock data
+            StockInfo stockInfo = extractStockInfoFromApiResponse(alphaVantageResponse);
+
+            // Filter stocks based on criteria and add to the result list
+            if (stockInfo != null && stockInfo.getPer() <= per && stockInfo.getPbr() <= pbr && stockInfo.getRoe() <= roe) {
+                filteredStocks.add(stockInfo);
             }
+
         }
         return filteredStocks;
+    }
+
+    public List<String> getDowSymbolsFromFile() {
+        List<String> stockSymbols = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(DOW_SYMBOLS_FILE_PATH))){
+            String line;
+            while ((line = br.readLine()) != null){
+                stockSymbols.add(line.trim());
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return stockSymbols;
+    }
+    private StockInfo extractStockInfoFromApiResponse(AlphaVantageResponse response) {
+        // Extract relevant data from the Alpha Vantage API response and create a single StockInfo object
+        StockInfo stockInfo = new StockInfo();
+        stockInfo.setSymbol(response.getSymbol());
+        stockInfo.setName(response.getName());
+        stockInfo.setPer(response.getPriceToEarningRatio());
+        stockInfo.setPbr(response.getPriceToBookRatio());
+        stockInfo.setRoe(response.getReturnOnEquity());
+        // Add other fields as needed based on the actual response structure
+        return stockInfo;
     }
 }
