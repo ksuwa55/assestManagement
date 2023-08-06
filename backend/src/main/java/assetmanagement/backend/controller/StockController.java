@@ -1,6 +1,6 @@
 package assetmanagement.backend.controller;
 
-import assetmanagement.backend.model.StockInfo;
+import assetmanagement.backend.model.Stock;
 import assetmanagement.backend.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +19,12 @@ public class StockController {
     }
 
     @GetMapping("/stocks")
-    public List<StockInfo> searchStocksByCriteria(
-            @RequestParam("per") double per,
-            @RequestParam("pbr") double pbr,
-            @RequestParam("roe") double roe) {
+    public List<Stock> searchStocksByCriteria(
+            @RequestParam("price") double price,
+            @RequestParam("market_capita") double market_capita
+                                            ) {
         List<String> dowSymbols = stockService.getDowSymbolsFromFile();
-        return stockService.searchStocksByCriteria(dowSymbols, per, pbr, roe);
+        return stockService.searchStocksByCriteria(dowSymbols, price, market_capita);
     }
 }
 

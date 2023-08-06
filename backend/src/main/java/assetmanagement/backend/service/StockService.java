@@ -1,6 +1,6 @@
 package assetmanagement.backend.service;
 
-import assetmanagement.backend.model.StockInfo;
+import assetmanagement.backend.model.Stock;
 import assetmanagement.backend.response.AlphaVantageResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -15,10 +15,10 @@ import java.util.List;
 public class StockService {
     private static final String API_KEY = "6L2HLK4GKMQNZ20Z";
     private static final String ALPHA_VANTAGE_URL = "https://www.alphavantage.co/query";
-    private static final String DOW_SYMBOLS_FILE_PATH = "backend/src/main/resources/static/dow_symbols.txt";
+    private static final String DOW_SYMBOLS_FILE_PATH = "C:\\Users\\ksuwa\\Documents\\Coding\\assetManagement\\backend\\src\\main\\resources\\static\\dow_symbols.txt";
 
-    public List<StockInfo> searchStocksByCriteria(List<String> stockSymbols, double per, double pbr, double roe){
-        List<StockInfo> filteredStocks = new ArrayList<>();
+    public List<Stock> searchStocksByCriteria(List<String> stockSymbols, double price, double market_capita){
+        List<Stock> filteredStocks = new ArrayList<>();
 
         for (String symbol : stockSymbols) {
             String apiUrl = ALPHA_VANTAGE_URL + "?function=OVERVIEW&symbol=" + symbol + "&apikey=" + API_KEY;
@@ -28,10 +28,10 @@ public class StockService {
             AlphaVantageResponse alphaVantageResponse = restTemplate.getForObject(apiUrl, AlphaVantageResponse.class);
 
             // Process the API response to get the real-time stock data
-            StockInfo stockInfo = extractStockInfoFromApiResponse(alphaVantageResponse);
+            Stock stockInfo = extractStockInfoFromApiResponse(alphaVantageResponse);
 
             // Filter stocks based on criteria and add to the result list
-            if (stockInfo != null && stockInfo.getPer() <= per && stockInfo.getPbr() <= pbr && stockInfo.getRoe() <= roe) {
+            if (stockInfo != null && stockInfo.getPrice() <= price && stockInfo.getMarket_capita() <= market_capita) {
                 filteredStocks.add(stockInfo);
             }
 
@@ -51,14 +51,14 @@ public class StockService {
         }
         return stockSymbols;
     }
-    private StockInfo extractStockInfoFromApiResponse(AlphaVantageResponse response) {
+    private Stock extractStockInfoFromApiResponse(AlphaVantageResponse response) {
         // Extract relevant data from the Alpha Vantage API response and create a single StockInfo object
-        StockInfo stockInfo = new StockInfo();
+        Stock stockInfo = new Stock();
         stockInfo.setSymbol(response.getSymbol());
         stockInfo.setName(response.getName());
-        stockInfo.setPer(response.getPriceToEarningRatio());
-        stockInfo.setPbr(response.getPriceToBookRatio());
-        stockInfo.setRoe(response.getReturnOnEquity());
+//        stockInfo.setPer(response.getPriceToEarningRatio());
+//        stockInfo.setPbr(response.getPriceToBookRatio());
+//        stockInfo.setRoe(response.getReturnOnEquity());
         // Add other fields as needed based on the actual response structure
         return stockInfo;
     }
