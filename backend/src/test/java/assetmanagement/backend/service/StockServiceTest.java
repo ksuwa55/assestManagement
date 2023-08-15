@@ -12,11 +12,6 @@ import java.util.List;
 public class StockServiceTest {
 
     @Test
-    void testSearchStocksByCriteria () {
-
-    }
-
-    @Test
     void testGetDowSymbolsFromFile () {
         List<String> expectedSymbols = Arrays.asList("AAPL", "GOOGL", "MSFT");
 

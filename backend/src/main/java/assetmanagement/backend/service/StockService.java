@@ -2,6 +2,7 @@ package assetmanagement.backend.service;
 
 import assetmanagement.backend.model.Stock;
 import assetmanagement.backend.response.AlphaVantageResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,22 +14,17 @@ import java.util.List;
 
 @Service
 public class StockService {
-    private static final String API_KEY = "6L2HLK4GKMQNZ20Z";
-    private static final String ALPHA_VANTAGE_URL = "https://www.alphavantage.co/query";
+    @Autowired
+    private WebScraperService webScraperService;
     private static final String DOW_SYMBOLS_FILE_PATH = "C:\\Users\\ksuwa\\Documents\\Coding\\assetManagement\\backend\\src\\main\\resources\\static\\dow_symbols.txt";
 
     public List<Stock> searchStocksByCriteria(List<String> stockSymbols, double price, double market_capita){
         List<Stock> filteredStocks = new ArrayList<>();
 
         for (String symbol : stockSymbols) {
-            String apiUrl = ALPHA_VANTAGE_URL + "?function=OVERVIEW&symbol=" + symbol + "&apikey=" + API_KEY;
-
-            // Send the API request and get the response as a JSON
-            RestTemplate restTemplate = new RestTemplate();
-            AlphaVantageResponse alphaVantageResponse = restTemplate.getForObject(apiUrl, AlphaVantageResponse.class);
 
             // Process the API response to get the real-time stock data
-            Stock stockInfo = extractStockInfoFromApiResponse(alphaVantageResponse);
+            Stock stockInfo = (Stock) webScraperService.scrapeStockInfoList();
 
             // Filter stocks based on criteria and add to the result list
             if (stockInfo != null && stockInfo.getPrice() <= price && stockInfo.getMarket_capita() <= market_capita) {

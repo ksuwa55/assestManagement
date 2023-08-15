@@ -25,6 +25,13 @@ public class Stock {
     public Stock() {
     }
 
+    public Stock(String symbol, String name, double price, double market_capita) {
+        this.symbol = symbol;
+        this.name = name;
+        this.price = price;
+        this.market_capita = market_capita;
+    }
+
     public String getSymbol() {
         return symbol;
     }
