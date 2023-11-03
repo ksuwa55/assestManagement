@@ -12,7 +12,7 @@ const Search = () => {
     axios.get(`http://localhost:8080/api/stocks?price=${price}&market_capita=${market_capita}`)
     .then(response => {
       setResult(response.data);
-      console.log(response.data)
+      // console.log(response.data)
     })
     .catch(error => {
       console.error(error);

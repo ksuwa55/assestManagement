@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../provider/AuthProvider';
 
 export default function Navbar() {
     const navigate = useNavigate();
+    const { logout } = useAuth();
 
     const handleLogout = () =>{
-        // Remove  the auth flag from localstrage
-        localStorage.removeItem('authenticated');
-
+        logout();
         // Navigate to the login page
         navigate('/login');
     }

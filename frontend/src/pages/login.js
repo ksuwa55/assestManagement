@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from "../provider/AuthProvider";
+
 
 const  LoginForm = () => {
+    const { login } = useAuth();
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -25,14 +28,14 @@ const  LoginForm = () => {
               username,
               password,
             });
-           console.log(response)
             // Check if login was successful
             if(response.data) {
               // Set authentification flag in localStrage
-              localStorage.setItem('authenticated', 'true');
+              login();              
 
-              // Redirect to the home page
-              navigate('/');
+              // Redirect to the home page  
+                navigate('/');
+            
             } else {
               setError('Invalid username or password');
             }
