@@ -13,7 +13,7 @@ public class StockServiceTest {
 
     @Test
     void testGetDowSymbolsFromFile () {
-        List<String> expectedSymbols = Arrays.asList("AAPL", "GOOGL", "MSFT");
+        List<String> expectedSymbols = Arrays.asList("AAPL",	"GOOGL",	"MSFT",	"AMZN",	"NVDA",	"TSLA",	"META",	"LLY",	"TSM",	"UNH",	"BRK-B",	"FB",	"JNJ",	"JPM",	"XOM",	"WMT",	"NVO",	"V",	"MA",	"PG",	"AVGO",	"HD",	"ORCL",	"CVX",	"BRK-A",	"MRK",	"ABBV",	"KO",	"ASML",	"PEP",	"RDS.A",	"COST",	"BAC",	"ADBE",	"BABA",	"TM",	"AZN",	"CSCO",	"NVS",	"BRK.A",	"TMO",	"MCD",	"CRM",	"SHEL",	"PFE",	"FMX",	"ACN",	"CMCSA",	"DHR");
 
         // create stockService Instance
         StockService stockService = new StockService();
