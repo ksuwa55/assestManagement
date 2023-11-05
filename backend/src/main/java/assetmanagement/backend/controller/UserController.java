@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -52,6 +55,16 @@ public class UserController {
             // Return the token in the request body
             return ResponseEntity.ok(token);
         }
+    }
+
+    @GetMapping("/getuserinfo")
+    public Map<Long,String> getUserInfo(@RequestBody User user){
+        Long id = user.getId();
+        String username = user.getUsername();
+        Map<Long,String> userInfo = new HashMap<>();
+        userInfo.put(id, username);
+
+        return userInfo;
     }
 
     private String generateJwtToken(User user) {
