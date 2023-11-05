@@ -28,6 +28,10 @@ const  LoginForm = () => {
               username,
               password,
             });
+            const userinfo = await axios.get('http://localhost:8080/api/getuserinfo', {
+              params: { username, password },
+            });
+            console.log(userinfo.data);
             // Check if login was successful
             if(response.data) {
               // Set authentification flag in localStrage
