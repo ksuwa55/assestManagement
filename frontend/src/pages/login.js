@@ -28,13 +28,19 @@ const  LoginForm = () => {
               username,
               password,
             });
+            const userinfo = await axios.get('http://localhost:8080/api/getuserinfo', {
+              params: { username, password },
+            });
+
+            const userid = Object.keys(userinfo.data).map(key => parseInt(key, 10));
+
             // Check if login was successful
             if(response.data) {
               // Set authentification flag in localStrage
               login();              
 
               // Redirect to the home page  
-                navigate('/');
+              navigate(`/home/${username}/${userid}`);
             
             } else {
               setError('Invalid username or password');

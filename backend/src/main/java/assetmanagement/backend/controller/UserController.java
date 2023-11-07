@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -52,6 +54,20 @@ public class UserController {
             // Return the token in the request body
             return ResponseEntity.ok(token);
         }
+    }
+
+    @GetMapping("/getuserinfo")
+    public Map<Long, String> getUserInfo(@RequestParam String username, @RequestParam String password) {
+        User existingUser = userRepository.findByUsername(username);
+
+        if (existingUser != null && existingUser.getPassword().equals(password)) {
+            Long id = existingUser.getId();
+            Map<Long, String> userInfo = new HashMap<>();
+            userInfo.put(id, username);
+            return userInfo;
+        }
+
+        throw new RuntimeException("Invalid username or password");
     }
 
     private String generateJwtToken(User user) {
