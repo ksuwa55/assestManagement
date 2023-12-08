@@ -2,11 +2,13 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Navbar from '../layout/Navbar';
 import Sidebar from '../layout/Sidebar';
+import { useParams } from 'react-router-dom';
 
 const Search = () => {
   const [price, setPrice] = useState(0);
   const [market_capita, setMarketCapita] = useState(0);
   const [result, setResult] = useState([]);
+  const { userid } = useParams();
 
   const handleSearch = () => {
     axios.get(`http://localhost:8080/api/stocks?price=${price}&market_capita=${market_capita}`)
@@ -18,6 +20,21 @@ const Search = () => {
       console.error(error);
     })
   }
+
+  const handleSubmitStockToPortfolio = async (stock_symbol) => {
+    try {
+      const response = await axios.post(`http://localhost:8080/api/send-to-portfolio`, null, {
+        params: {
+          stock_symbol: stock_symbol.toString(),
+          userId: userid,
+        }
+      });
+    
+    } catch (error) {
+      console.error(error);
+    }  
+  };
+
   return (
     <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
       <Navbar />
@@ -53,7 +70,7 @@ const Search = () => {
                   <td>{stock.price}</td>
                   <td>{stock.market_capita}</td>
                   <td>
-                    <button type="button" className="btn btn-primary">+</button>
+                    <button type="button" onClick={() => handleSubmitStockToPortfolio(stock.symbol)} className="btn btn-primary">+</button>
                   </td>
                 </tr>
               ))}              
