@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PortfoliioService {
+public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
 
-    public PortfoliioService(PortfolioRepository portfolioRepository) {
+    public PortfolioService(PortfolioRepository portfolioRepository) {
         this.portfolioRepository = portfolioRepository;
     }
 
