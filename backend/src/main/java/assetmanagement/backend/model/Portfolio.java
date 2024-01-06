@@ -8,7 +8,7 @@ public class Portfolio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long user_id;;
+    private Long userId;;
 
     private String stock_symbol;
 
@@ -29,10 +29,10 @@ public class Portfolio {
     }
 
     public Long getUserId() {
-        return user_id;
+        return userId;
     }
 
     public void setUserId(Long userId) {
-        this.user_id = userId;
+        this.userId = userId;
     }
 }

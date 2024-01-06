@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface PortfolioRepository extends JpaRepository<Portfolio, Long> {
-    @Query("SELECT p.stock_symbol FROM Portfolio p WHERE p.user_id = :user_id")
+    @Query("SELECT p.stock_symbol FROM Portfolio p WHERE p.userId = :user_id")
     List<String> findStockSymbolsByUserId(@Param("user_id") Long user_id);
 
 }
