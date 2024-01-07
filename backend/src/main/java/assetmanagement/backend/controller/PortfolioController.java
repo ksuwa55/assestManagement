@@ -1,8 +1,12 @@
 package assetmanagement.backend.controller;
 
 import assetmanagement.backend.model.Portfolio;
+import assetmanagement.backend.model.Stock;
 import assetmanagement.backend.repository.PortfolioRepository;
+import assetmanagement.backend.service.PortfolioService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -10,8 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class PortfolioController {
     private final PortfolioRepository portfolioRepository;
 
-    public PortfolioController(PortfolioRepository portfolioRepository) {
+    private final PortfolioService portfolioService;
+
+
+    public PortfolioController(PortfolioRepository portfolioRepository, PortfolioService portfolioService) {
         this.portfolioRepository = portfolioRepository;
+        this.portfolioService = portfolioService;
     }
 
     @PostMapping("/send-to-portfolio")
@@ -21,5 +29,12 @@ public class PortfolioController {
         portfolio.setUserId(userId);
 
         portfolioRepository.save(portfolio);
+    }
+
+    @GetMapping("/portfolio")
+    public List<Stock> showStocksByPortfolio(@RequestParam Long userId)        {
+
+        List<Stock> filteredStocks = portfolioService.scrapeStockInfoListByUserId(userId);
+        return filteredStocks;
     }
 }

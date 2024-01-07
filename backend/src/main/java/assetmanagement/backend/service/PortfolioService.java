@@ -3,10 +3,12 @@ package assetmanagement.backend.service;
 import assetmanagement.backend.model.Stock;
 import assetmanagement.backend.repository.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
 
