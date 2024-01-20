@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../layout/Navbar';
 import Sidebar from '../layout/Sidebar';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const Portfolio = () => {
+  const [portfolio, setPortfolio] = useState([]);
+  const { userid } = useParams();
+  
+  console.log(userid)
+
+  useEffect(() => {
+    console.log('User ID:', userid);
+    handlePortfolio();
+  }, [userid]);
+
+  const handlePortfolio = () => {
+    console.log('Fetching data for user ID:', userid);
+    axios.get(`http://localhost:8080/api/portfolio/${userid}`)
+      .then(response => {
+        console.log('Response from backend:', response);
+        setPortfolio(response.data);
+      })
+      .catch(error => {
+        console.error('Error from backend:', error);
+      });
+  };
+  
+
   return (
     <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
       <Navbar />
@@ -19,14 +44,16 @@ const Portfolio = () => {
               </tr>
             </thead>
             <tbody>
-                <tr>
-                  <td>AAAA</td>
-                  <td>AAAA</td>
-                  <td>AAAA</td>
+              {portfolio.map(stock => (
+                <tr key={stock.symbol}>
+                  <td>{stock.name}</td>
+                  <td>{stock.price}</td>
+                  <td>{stock.market_capita}</td>
                   <td>
                     <button type="button" className="btn btn-danger">×</button>
                   </td>
                 </tr>
+              ))}
             </tbody>
           </table>
         </div>

@@ -31,9 +31,9 @@ public class PortfolioController {
         portfolioRepository.save(portfolio);
     }
 
-    @GetMapping("/portfolio")
-    public List<Stock> showStocksByPortfolio(@RequestParam Long userId)        {
-
+    @GetMapping("/portfolio/{userId}")
+    public List<Stock> showStocksByPortfolio(@PathVariable Long userId) {
+        System.out.println("Received request for user ID: " + userId);
         List<Stock> filteredStocks = portfolioService.scrapeStockInfoListByUserId(userId);
         return filteredStocks;
     }

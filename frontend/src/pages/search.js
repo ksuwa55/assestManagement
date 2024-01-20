@@ -10,6 +10,7 @@ const Search = () => {
   const [result, setResult] = useState([]);
   const { userid } = useParams();
 
+  console.log(userid);
   const handleSearch = () => {
     axios.get(`http://localhost:8080/api/stocks?price=${price}&market_capita=${market_capita}`)
     .then(response => {

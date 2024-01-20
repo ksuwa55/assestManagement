@@ -25,7 +25,7 @@ export default function Navbar() {
             </Link>
             <div>
                 <Link className='btn btn-outline-light me-2' to={`/search/${username}/${userid}`} >Seach</Link>
-                <Link className='btn btn-outline-light me-2' to="/portfolio">Portfolio</Link>
+                <Link className='btn btn-outline-light me-2' to={`/portfolio/${userid}`}>Portfolio</Link>
                 <button className='btn btn-outline-light me-2' onClick={handleLogout}>Logout</button>
             </div>
         </div>
