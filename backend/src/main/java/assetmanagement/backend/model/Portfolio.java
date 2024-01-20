@@ -8,11 +8,31 @@ public class Portfolio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Long userId;;
 
-    @ManyToOne
-    @JoinColumn(name = "stock_id")
-    private Stock stock;
+    private String stock_symbol;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getStock_symbol() {
+        return stock_symbol;
+    }
+
+    public void setStock_symbol(String stock_symbol) {
+        this.stock_symbol = stock_symbol;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }
