@@ -27,7 +27,6 @@ const Portfolio = () => {
       });
   };
   
-
   return (
     <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
       <Navbar />

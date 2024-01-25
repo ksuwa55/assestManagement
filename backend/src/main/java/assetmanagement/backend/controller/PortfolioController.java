@@ -6,6 +6,7 @@ import assetmanagement.backend.repository.PortfolioRepository;
 import assetmanagement.backend.service.PortfolioService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.sampled.Port;
 import java.util.List;
 
 @RestController
@@ -36,5 +37,10 @@ public class PortfolioController {
         System.out.println("Received request for user ID: " + userId);
         List<Stock> filteredStocks = portfolioService.scrapeStockInfoListByUserId(userId);
         return filteredStocks;
+    }
+
+    @PostMapping("/delete")
+    public void deleteStockFromPortfolio(@RequestParam Long id){
+        portfolioRepository.deleteById(id);
     }
 }
