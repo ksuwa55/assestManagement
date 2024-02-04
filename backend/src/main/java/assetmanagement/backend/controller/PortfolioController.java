@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.sound.sampled.Port;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -40,7 +41,7 @@ public class PortfolioController {
     }
 
     @PostMapping("/delete")
-    public void deleteStockFromPortfolio(@RequestParam Long id){
+    public void deleteStockFromPortfolio(@RequestParam Long id) {
         portfolioRepository.deleteById(id);
     }
 }
