@@ -6,9 +6,7 @@ import assetmanagement.backend.repository.PortfolioRepository;
 import assetmanagement.backend.service.PortfolioService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sound.sampled.Port;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
