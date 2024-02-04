@@ -10,7 +10,8 @@ public class Portfolio {
 
     private Long userId;;
 
-    private String stock_symbol;
+    @Column(name = "stock_symbol")
+    private String stockSymbol;
 
     public Long getId() {
         return id;
@@ -20,12 +21,12 @@ public class Portfolio {
         this.id = id;
     }
 
-    public String getStock_symbol() {
-        return stock_symbol;
+    public String getStockSymbol() {
+        return stockSymbol;
     }
 
-    public void setStock_symbol(String stock_symbol) {
-        this.stock_symbol = stock_symbol;
+    public void setStockSymbol(String stockSymbol) {
+        this.stockSymbol = stockSymbol;
     }
 
     public Long getUserId() {

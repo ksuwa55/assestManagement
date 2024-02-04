@@ -22,11 +22,11 @@ const Search = () => {
     })
   }
 
-  const handleSubmitStockToPortfolio = async (stock_symbol) => {
+  const handleSubmitStockToPortfolio = async (stockSymbol) => {
     try {
       const response = await axios.post(`http://localhost:8080/api/send-to-portfolio`, null, {
         params: {
-          stock_symbol: stock_symbol.toString(),
+          stockSymbol: stockSymbol.toString(),
           userId: userid,
         }
       });

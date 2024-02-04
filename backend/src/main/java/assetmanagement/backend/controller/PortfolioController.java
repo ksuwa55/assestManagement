@@ -4,6 +4,8 @@ import assetmanagement.backend.model.Portfolio;
 import assetmanagement.backend.model.Stock;
 import assetmanagement.backend.repository.PortfolioRepository;
 import assetmanagement.backend.service.PortfolioService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,9 +25,9 @@ public class PortfolioController {
     }
 
     @PostMapping("/send-to-portfolio")
-    public void sendStockToPortfolio(@RequestParam String stock_symbol, @RequestParam Long userId) {
+    public void sendStockToPortfolio(@RequestParam String stockSymbol, @RequestParam Long userId) {
         Portfolio portfolio = new Portfolio();
-        portfolio.setStock_symbol(stock_symbol);
+        portfolio.setStockSymbol(stockSymbol != null ? stockSymbol : "DEFAULT_VALUE");
         portfolio.setUserId(userId);
 
         portfolioRepository.save(portfolio);
@@ -39,7 +41,15 @@ public class PortfolioController {
     }
 
     @PostMapping("/delete")
-    public void deleteStockFromPortfolio(@RequestParam Long id) {
-        portfolioRepository.deleteById(id);
+    public ResponseEntity<String> deleteStockFromPortfolio(@RequestParam Long userId, @RequestParam String stockSymbol) {
+        try {
+            portfolioRepository.deleteByUserIdAndStockSymbol(userId, stockSymbol);
+            return ResponseEntity.ok("Stock deleted successfully");
+        } catch (Exception e) {
+            // Log the exception for debugging purposes
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete stock");
+        }
     }
+
 }

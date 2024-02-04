@@ -27,9 +27,20 @@ const Portfolio = () => {
       });
   };
 
-  const handleDeletePortfolio = () => {
-    console.log("it works");
-  };
+  const handleDeletePortfolio = async (userid, stockSymbol) => {
+    try {
+        const response = await axios.post(`http://localhost:8080/api/delete`, null, {
+            params: {
+                userId: userid,
+                stockSymbol: stockSymbol,
+            },
+        });
+        console.log(response.data);
+        handlePortfolio(); // Refresh the portfolio data after deletion
+    } catch (error) {
+        console.error('Error deleting stock:', error);
+    }
+};
   
   return (
     <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
@@ -53,7 +64,7 @@ const Portfolio = () => {
                   <td>{stock.price}</td>
                   <td>{stock.market_capita}</td>
                   <td>
-                    <button type="button" className="btn btn-danger" onClick={handleDeletePortfolio()}>×</button>
+                    <button type="button" className="btn btn-danger"  onClick={() => handleDeletePortfolio(userid, stock.symbol)}>×</button>
                   </td>
                 </tr>
               ))}
