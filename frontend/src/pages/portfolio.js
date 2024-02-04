@@ -26,6 +26,10 @@ const Portfolio = () => {
         console.error('Error from backend:', error);
       });
   };
+
+  const handleDeletePortfolio = () => {
+    console.log("it works");
+  };
   
   return (
     <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
@@ -49,7 +53,7 @@ const Portfolio = () => {
                   <td>{stock.price}</td>
                   <td>{stock.market_capita}</td>
                   <td>
-                    <button type="button" className="btn btn-danger">×</button>
+                    <button type="button" className="btn btn-danger" onClick={handleDeletePortfolio()}>×</button>
                   </td>
                 </tr>
               ))}
