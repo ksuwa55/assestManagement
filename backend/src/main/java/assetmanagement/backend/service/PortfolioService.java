@@ -4,6 +4,7 @@ import assetmanagement.backend.model.Stock;
 import assetmanagement.backend.repository.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class PortfolioService {
     @Autowired
     WebScraperService webScraperService;
 
+    @Transactional
     public List<Stock> scrapeStockInfoListByUserId(Long user_id){
         List<String> stockSymbols = portfolioRepository.findStockSymbolsByUserId(user_id);
         List<Stock> stockInfoList = webScraperService.scrapeStockInfoList();

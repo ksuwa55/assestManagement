@@ -9,11 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/api")
 public class PortfolioController {
+
     private final PortfolioRepository portfolioRepository;
 
     private final PortfolioService portfolioService;
@@ -41,8 +43,11 @@ public class PortfolioController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<String> deleteStockFromPortfolio(@RequestParam Long userId, @RequestParam String stockSymbol) {
+    public ResponseEntity<String> deleteStockFromPortfolio(@RequestBody Map<String , String> params) {
         try {
+            Long userId = Long.parseLong(params.get("userId"));
+            String stockSymbol = params.get("stockSymbol");
+
             portfolioRepository.deleteByUserIdAndStockSymbol(userId, stockSymbol);
             return ResponseEntity.ok("Stock deleted successfully");
         } catch (Exception e) {
@@ -51,5 +56,4 @@ public class PortfolioController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete stock");
         }
     }
-
 }

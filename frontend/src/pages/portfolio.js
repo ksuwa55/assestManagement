@@ -29,18 +29,23 @@ const Portfolio = () => {
 
   const handleDeletePortfolio = async (userid, stockSymbol) => {
     try {
-        const response = await axios.post(`http://localhost:8080/api/delete`, null, {
-            params: {
-                userId: userid,
-                stockSymbol: stockSymbol,
-            },
-        });
-        console.log(response.data);
-        handlePortfolio(); // Refresh the portfolio data after deletion
+      const response = await axios.post(
+        'http://localhost:8080/api/delete',
+        { userId: userid, stockSymbol: stockSymbol }, // Send data in the request body as JSON
+        {
+          headers: {
+            'Content-Type': 'application/json', // Set the Content-Type header
+          },
+        }
+      );
+      console.log(stockSymbol);
+      handlePortfolio(); // Refresh the portfolio data after deletion
     } catch (error) {
-        console.error('Error deleting stock:', error);
+      console.log(stockSymbol);
+      console.log(userid);
+      console.error('Error deleting stock:', error);
     }
-};
+  };
   
   return (
     <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
